@@ -1,0 +1,10 @@
+.product-item-box { /* TODO: make this a grid. */
+    display: flex;
+  flex-direction: row;
+  align-items: center;
+}
+
+.product-item-box * {
+    margin: 0 10px;
+    font-size: large;
+}
