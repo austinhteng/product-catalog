@@ -1,5 +1,7 @@
 import { CommonModule } from '@angular/common';
-import { Component } from '@angular/core';
+import { Component, Inject } from '@angular/core';
+import { ActivatedRoute, Router } from '@angular/router';
+
 import { ProductItem } from '../product-item/product-item';
 import { ProductService } from '../services/product.service';
 import { Product } from '../models/product';
@@ -12,12 +14,15 @@ import { Product } from '../models/product';
 })
 export class ProductList {
 
-  constructor(private productService: ProductService) {}  //Note: variables passed to constructor have weird scope.
+  constructor(private productService: ProductService, private router: Router) {}  //Note: variables passed to constructor have weird scope.
 
+  
   //Note: Do I link the 'model' and the 'view' here? I expect a "viewmodel" layer instead.
   //Note: I suppose the 'view' is the html and this .ts is the viewmodel.
   items: readonly Product[] = [];
-  
+
+  ngOnChanges() : void {}
+
   ngOnInit() : void {
     this.items = this.productService.getProducts();
   }
@@ -25,5 +30,9 @@ export class ProductList {
   deleteItemAtIndex(index: number): void {
     this.productService.deleteProductByIndex(index);  //Note: Would need some sort of await.
     this.items = this.productService.getProducts();
+  }
+
+  routeToCreateItem(): void {
+    this.router.navigate(['/create-item']);
   }
 }

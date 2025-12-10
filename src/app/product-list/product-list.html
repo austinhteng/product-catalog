@@ -1,7 +1,11 @@
-<div class="product-list-container">
-    <product-item
+<div class="product-list">
+    <div class="product-list-container">
+        <product-item
         *ngFor="let item of items"
         [product]="item"
         [index]="items.indexOf(item)"
-        (deleteFromParentEvent)="deleteItemAtIndex($event)"/> <!-- Note: $event is odd, is it always necessary? Why else would it exist? Is there a better way to get index? -->
+        (deleteFromParentEvent)="deleteItemAtIndex($event)"/>
+    </div>
+    
+    <button (click)="routeToCreateItem()">Add Item</button>
 </div>

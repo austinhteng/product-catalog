@@ -1,0 +1,30 @@
+<div class="product-item-create-box">
+    <div class="product-item-entry">
+
+    <label for="idField">Item ID:</label>
+    <input
+        type="text"
+        id="idField"
+        [(ngModel)]="idInput"
+    />
+
+    <label for="nameField">Item Name:</label>
+    <input
+        type="text"
+        id="nameField"
+        [(ngModel)]="nameInput"
+    />
+
+    <label for="priceField">Item Price:</label>
+    <input
+        type="text"
+        id="priceField"
+        [(ngModel)]="priceInput"
+    />
+    </div>
+
+    <product-item-create-preview
+        [product]="{id: idInput, name: nameInput, price: priceInput}"/>
+    
+    <button (click)="saveNewItem()">Save Item</button>
+</div>

@@ -4,15 +4,14 @@ import { Product } from '../models/product';
 
 @Component({
   selector: 'product-item',
-  imports: [],  //Note: Do not need to import models.
+  imports: [],
   templateUrl: './product-item.html',
   styleUrl: './product-item.css',
 })
 export class ProductItem {
   @Input() product!: Product;
   @Input() index?: number;
-  // @Input() deleteFromParent?: (index: number) => void; // Note: Bad delegate way.
-  @Output() deleteFromParentEvent = new EventEmitter<number>();  //Note: Good listener way. Curious more about difference.
+  @Output() deleteFromParentEvent = new EventEmitter<number>();
 
   onBuy(): void {
   }

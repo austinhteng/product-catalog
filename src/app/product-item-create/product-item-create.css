@@ -1,0 +1,17 @@
+.product-item-create-box {
+    display: flex;
+    flex-direction: column;
+    margin: 0, auto;
+    justify-content: center;
+}
+
+.product-item-create-box * {
+  margin: 0 auto;
+  width: fit-content; /* or a fixed width */
+}
+
+.product-item-entry {
+    display: grid;
+    grid-template-columns: 100px 1fr;
+    align-items: center;
+}
