@@ -1,33 +1,52 @@
-import { Component, Inject } from '@angular/core';
-import { FormsModule } from '@angular/forms';
+import { Component, inject } from '@angular/core';
+import { FormBuilder, Validators, ReactiveFormsModule, FormControl } from '@angular/forms';
+import { Router } from '@angular/router';
+import { CommonModule } from '@angular/common';
 
 import { ProductItemCreatePreview } from '../product-item-create-preview/product-item-create-preview';
 import { ProductService } from '../services/product.service';
-import { Router } from '@angular/router';
 
 @Component({
   selector: 'product-item-create',
-  imports: [FormsModule, ProductItemCreatePreview],
+  standalone: true,
+  imports: [ReactiveFormsModule, ProductItemCreatePreview, CommonModule],
   templateUrl: './product-item-create.html',
   styleUrl: './product-item-create.css',
 })
 export class ProductItemCreate {
-  constructor(private productService: ProductService, private router: Router) {}
+  private fb = inject(FormBuilder);
+  private productService = inject(ProductService);
+  private router: Router = inject(Router);
 
-  // productService: ProductService = Inject(ProductService);
-  // router: Router = Inject(Router);
+  id: string = '';
+  name: string = '';
+  price: number = 0.00;
+  itemForm: any;
 
-  idInput: number = 0;
-  nameInput: string = '';
-  priceInput: number = 0;
+  ngOnInit(): void {
+      this.itemForm = this.fb.group({
+      id: new FormControl( this.id, [Validators.required, Validators.min(1)]),
+      name: new FormControl(this.name, [Validators.required, Validators.minLength(2)]),
+      price: new FormControl(this.price, [Validators.required, Validators.min(0.01)]),
+    });
+  }
 
   saveNewItem(): void {
-    console.log(`Saving new item: ID=${this.idInput}, Name=${this.nameInput}, Price=${this.priceInput}`);
+    if (this.itemForm.invalid) {
+      this.itemForm.markAllAsTouched();
+      return;
+    }
+
+    const product = this.itemForm.value;
+
+    console.log("Saving new item:", product);
+
     this.productService.addProduct({
-      id: this.idInput,
-      name: this.nameInput,
-      price: this.priceInput
+      id: product.id!,
+      name: product.name!,
+      price: product.price!
     });
+
     this.router.navigate(['/products']);
   }
 }

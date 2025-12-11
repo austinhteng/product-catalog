@@ -1,12 +1,39 @@
 <div class="product-item-create-box">
-    <div class="product-item-entry">
-
+    <div class="product-item-entry" [formGroup]="itemForm">
+    <!-- ID -->
     <label for="idField">Item ID:</label>
+    <input type="text" id="idField" formControlName="id" />
+    <div class="error"
+         *ngIf="itemForm.get('id')?.invalid && itemForm.get('id')?.touched">
+      <span *ngIf="itemForm.get('id')?.errors?.['required']">ID is required</span>
+      <span *ngIf="itemForm.get('id')?.errors?.['minlength']">ID must be at least 3 characters</span>
+      <span *ngIf="itemForm.get('id')?.errors?.['min']">ID must be >= 1</span>
+    </div>
+
+    <!-- Name -->
+    <label for="nameField">Item Name:</label>
+    <input type="text" id="nameField" formControlName="name" />
+    <div class="error" *ngIf="itemForm.get('name')?.invalid && itemForm.get('name')?.touched">
+      <span *ngIf="itemForm.get('name')?.errors?.['required']">Name is required</span>
+      <span *ngIf="itemForm.get('name')?.errors?.['minlength']">Name must be at least 2 characters</span>
+    </div>
+
+    <!-- Price -->
+    <label for="priceField">Item Price:</label>
+    <input id="priceField" formControlName="price" />
+    <div class="error" *ngIf="itemForm.get('price')?.invalid && itemForm.get('price')?.touched">
+      <span *ngIf="itemForm.get('price')?.errors?.['required']">Price is required</span>
+      <span *ngIf="itemForm.get('price')?.errors?.['min']">Price must be greater than 0</span>
+    </div>
+
+    <!-- <label for="idField">Item ID:</label>
     <input
         type="text"
         id="idField"
         [(ngModel)]="idInput"
     />
+
+    
 
     <label for="nameField">Item Name:</label>
     <input
@@ -21,10 +48,10 @@
         id="priceField"
         [(ngModel)]="priceInput"
     />
-    </div>
+    </div> -->
 
-    <product-item-create-preview
-        [product]="{id: idInput, name: nameInput, price: priceInput}"/>
+    <!-- <product-item-create-preview
+        [product]="{id: idInput, name: nameInput, price: priceInput}"/> -->
     
     <button (click)="saveNewItem()">Save Item</button>
 </div>

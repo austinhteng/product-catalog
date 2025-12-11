@@ -1,17 +1,34 @@
 .product-item-create-box {
     display: flex;
     flex-direction: column;
-    margin: 0, auto;
-    justify-content: center;
-}
-
-.product-item-create-box * {
-  margin: 0 auto;
-  width: fit-content; /* or a fixed width */
+    align-items: center; /* center the whole form horizontally */
+    margin: 0 auto;
+    gap: 16px; /* space between each entry */
 }
 
 .product-item-entry {
     display: grid;
-    grid-template-columns: 100px 1fr;
-    align-items: center;
+    grid-template-columns: 120px 1fr; /* label 120px, input takes the rest */
+    align-items: start; /* align items to the top */
+    gap: 8px 16px; /* 8px row gap, 16px column gap */
+    width: 100%; /* expand horizontally */
+    max-width: 500px; /* optional, constrain form width */
+}
+
+.product-item-entry label {
+    justify-self: end; /* right-align labels */
+    padding-top: 6px; /* vertically align with input */
+}
+
+.product-item-entry input {
+    width: 100%; /* input takes full column width */
+    padding: 6px 8px;
+    box-sizing: border-box;
+}
+
+.error {
+    grid-column: 2 / 3; /* span under input column */
+    color: #d9534f;
+    font-size: 0.8rem;
+    margin-top: 2px;
 }

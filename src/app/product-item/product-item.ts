@@ -1,10 +1,13 @@
 import { Component, Input, Output, EventEmitter } from '@angular/core';
+import { TitleCasePipe, CurrencyPipe } from '@angular/common';
+import { ItemIdPipe } from '../pipes/item-id/item-id-pipe';
 
 import { Product } from '../models/product';
 
 @Component({
   selector: 'product-item',
-  imports: [],
+  standalone: true,
+  imports: [TitleCasePipe, CurrencyPipe, ItemIdPipe],
   templateUrl: './product-item.html',
   styleUrl: './product-item.css',
 })
