@@ -1,14 +1,14 @@
-<div class="row justify-content-start bg-row text-black p-3 mb-1 rounded">
+<div class="row g-0 justify-content-start color-primary-light text-black p-3 mb-1 rounded">
     <div class="col-sm-1">
         <p>{{index}}.</p>
     </div>
-    <div class="col-md-3">
+    <div class="col">
         <p>Price: {{product.price | currency}}</p>
     </div>
-    <div class="col-md-3">
+    <div class="col">
         <p>Name: {{product.name | titlecase}}</p>
     </div>
-    <div class="col-md-3">
+    <div class="col">
         <p>ID: {{product.id | itemId:8}}</p>
     </div>
     <div class="col-auto">

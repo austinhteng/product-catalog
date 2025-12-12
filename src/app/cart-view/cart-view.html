@@ -1,1 +1,21 @@
-<p>cart-view works!</p>
+<div class="d-flex flex-column h-100 color-primary-dark justify-content-center p-2 mb-2 rounded">
+    <div class="row">
+        <h3>Shopping Cart</h3>
+    </div>
+    <div class="row flex-grow-1 color-primary-light mx-2 mb-2 rounded ">
+        <div class="container">
+            <cart-item
+            *ngFor="let item of items"
+            [productID]="item[0]"
+            [productCount]="item[1]"/>
+        </div>
+    </div>
+    <div class="row justify-content-around pd-0 mb-2">
+        <div class="col-auto">
+            <button class="btn btn-success w-auto">Checkout</button>
+        </div>
+        <div class="col-auto">
+            <p>Total: {{totalCost() | currency}}</p>
+        </div>
+    </div>
+</div>

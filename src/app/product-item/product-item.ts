@@ -1,8 +1,9 @@
-import { Component, Input, Output, EventEmitter } from '@angular/core';
+import { Component, Input, Output, EventEmitter, inject } from '@angular/core';
 import { TitleCasePipe, CurrencyPipe } from '@angular/common';
 import { ItemIdPipe } from '../pipes/item-id/item-id-pipe';
 
 import { Product } from '../models/product';
+import { StoreService } from '../services/store.service';
 
 @Component({
   selector: 'product-item',
@@ -16,11 +17,15 @@ export class ProductItem {
   @Input() index?: number;
   @Output() deleteFromParentEvent = new EventEmitter<number>();
 
+  shoppingCartService = inject(StoreService); //Note: This logic should possibly be in productlist instead.
+
   onBuy(): void {
+    this.shoppingCartService.addToCart(this.product.id);
   }
   onDelete(): void {
     if (this.deleteFromParentEvent != null && this.index != null) {
       this.deleteFromParentEvent.emit(this.index);
     }
+    this.shoppingCartService.removeItem(this.product.id); //Note: This logic should possibly be in productlist instead.
   }
 }

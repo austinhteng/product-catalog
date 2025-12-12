@@ -2,12 +2,13 @@
     <div class="product-item-entry" [formGroup]="itemForm">
     <!-- ID -->
     <label for="idField">Item ID:</label>
-    <input type="text" id="idField" formControlName="id" />
+    <input type="text" id="idField" formControlName="id" (keydown)="onlyDigits($event)"/>
     <div class="error"
          *ngIf="itemForm.get('id')?.invalid && itemForm.get('id')?.touched">
       <span *ngIf="itemForm.get('id')?.errors?.['required']">ID is required</span>
       <span *ngIf="itemForm.get('id')?.errors?.['minlength']">ID must be at least 3 characters</span>
       <span *ngIf="itemForm.get('id')?.errors?.['min']">ID must be >= 1</span>
+      <span *ngIf="itemForm.get('id')?.errors?.['idUsed']">ID must be unique</span>
     </div>
 
     <!-- Name -->
@@ -20,7 +21,7 @@
 
     <!-- Price -->
     <label for="priceField">Item Price:</label>
-    <input id="priceField" formControlName="price" />
+    <input id="priceField" formControlName="price" (keydown)="onlyDigits($event)"/>
     <div class="error" *ngIf="itemForm.get('price')?.invalid && itemForm.get('price')?.touched">
       <span *ngIf="itemForm.get('price')?.errors?.['required']">Price is required</span>
       <span *ngIf="itemForm.get('price')?.errors?.['min']">Price must be greater than 0</span>

@@ -1,20 +1,20 @@
-<div class="container product-list-box">
+<div class="container product-list-box color-primary-dark rounded p-3 mb-3">
     <div class="col">
-        <div class="row-md-6 justify-content-center">
-            <div class="col-auto product-list-container">
-                <div class="container">
-                    <product-item
-                    *ngFor="let item of items"
-                    [product]="item"
-                    [index]="items.indexOf(item)"
-                    (deleteFromParentEvent)="deleteItemAtIndex($event)"/>
+        <div class="row justify-content-center">
+            <div class="col-md-9 product-list-container">
+                <div class="row justify-content-center">
+                    <div class="container">
+                        <product-item
+                        *ngFor="let item of items"
+                        [product]="item"
+                        [index]="items.indexOf(item)"
+                        (deleteFromParentEvent)="deleteItemAtIndex($event)"/>
+                    </div>
                 </div>
             </div>
         </div>
         <div class="row justify-content-center">
-            <!-- <div class ="col-md-2"> -->
-                <button class="btn btn-success w-auto" (click)="routeToCreateItem()">Add Item</button>
-            <!-- </div> -->
+            <button class="btn btn-success w-auto" (click)="routeToCreateItem()">Add Item</button>
         </div>
     </div>
 </div>

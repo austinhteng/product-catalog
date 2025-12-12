@@ -1,1 +1,20 @@
 /* You can add global styles to this file, and also import other style files */
+.color-secondary-dark {
+    background-color: #3D2C2E;
+}
+
+.color-secondary-light {
+    background-color: #886F68;
+}
+
+.color-primary-light {
+    background-color: #F5EDF0;
+}
+
+.color-tertiary-dark {
+    background-color: #424C55;
+}
+
+.color-primary-dark {
+    background-color: #D1CCDC;
+}

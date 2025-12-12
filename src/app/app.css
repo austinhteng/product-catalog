@@ -1,0 +1,28 @@
+.header-bar {
+  height: 80px;
+  display: flex;      /* allows inner content to align */
+  align-items: center; /* vertically center content */
+}
+
+.header-bar h1 {
+    color: #F5EDF0;
+}
+
+body {
+  display: flex;             /* Activates Flexbox */
+  flex-direction: column;    /* Stacks children vertically */
+  min-height: 100vh;         /* Ensures the container is at least the full viewport height */
+  margin: 0;                 /* Removes default body margins */
+}
+
+main {
+    flex-grow: 1;                  /* Allows main to grow and fill available space */
+}
+
+.footer-bar {
+  height: 40px;
+}
+
+.footer-bar h1 {
+    color: #F5EDF0;
+}

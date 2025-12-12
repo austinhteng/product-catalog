@@ -1,5 +1,5 @@
 import { Component, inject } from '@angular/core';
-import { FormBuilder, Validators, ReactiveFormsModule, FormControl } from '@angular/forms';
+import { FormBuilder, Validators, ValidationErrors, ReactiveFormsModule, FormControl, AbstractControl } from '@angular/forms';
 import { Router } from '@angular/router';
 import { CommonModule } from '@angular/common';
 
@@ -25,7 +25,7 @@ export class ProductItemCreate {
 
   ngOnInit(): void {
       this.itemForm = this.fb.group({
-      id: new FormControl( this.id, [Validators.required, Validators.min(1)]),
+      id: new FormControl( this.id, [Validators.required, Validators.min(1), this.productIdNotUsedValidator]),
       name: new FormControl(this.name, [Validators.required, Validators.minLength(2)]),
       price: new FormControl(this.price, [Validators.required, Validators.min(0.01)]),
     });
@@ -48,5 +48,20 @@ export class ProductItemCreate {
     });
 
     this.router.navigate(['/products']);
+  }
+
+  productIdNotUsedValidator = (control: AbstractControl): ValidationErrors | null => {
+    const id = Number(control.value);
+    const product = this.productService.getProductById(id);
+    return product == null ? null : { idUsed: true };
+  };
+
+  onlyDigits(event: KeyboardEvent) {
+    const allowedKeys = ['Backspace', 'Delete', 'ArrowLeft', 'ArrowRight', 'Tab'];
+    if (allowedKeys.includes(event.key)) return;
+
+    if (!/^\d$/.test(event.key)) {
+      event.preventDefault();
+    }
   }
 }

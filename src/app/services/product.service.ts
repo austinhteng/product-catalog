@@ -17,15 +17,27 @@ export class ProductService {
         { id: 3, name: 'Pears', price: 0.49 }
     ];
 
+    private productLookup: Map<number, Product> = new Map<number, Product>(
+        this.products.map((product) => [product.id, product])
+    );
+
     getProducts(): readonly Product[] {
         return this.products;
     }
 
     deleteProductByIndex(index: number): void {
-        this.products.splice(index, 1);
+        let removed: Product = this.products.splice(index, 1).at(0)!;
+        this.productLookup.delete(removed.id);
     }
 
     addProduct(product: Product): void {
         this.products.push(product);
+        this.productLookup.set(product.id, product);
+    }
+
+    getProductById(id: number): Product | undefined {
+        console.log(`ProductService lookup: ${id}`);
+        
+        return this.productLookup.get(id);
     }
 }
