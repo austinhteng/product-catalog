@@ -1,26 +1,20 @@
 <div class="container product-list-box">
-    <div class="row justify-content-center">
-        <div class="col">
-            <table class="table table-striped table-bordered">
-                <thead>
-                    <tr>
-                    <th scope="col">#</th>
-                    <th scope="col">Name</th>
-                    <th scope="col">Price</th>
-                    <th scope="col">Item ID</th>
-                    </tr>
-                </thead>
-                <tbody>
+    <div class="col">
+        <div class="row-md-6 justify-content-center">
+            <div class="col-auto product-list-container">
+                <div class="container">
                     <product-item
                     *ngFor="let item of items"
                     [product]="item"
                     [index]="items.indexOf(item)"
                     (deleteFromParentEvent)="deleteItemAtIndex($event)"/>
-                </tbody>
-            </table>
-
-            <button class="btn btn-success w-auto" (click)="routeToCreateItem()">Add Item</button>
-
+                </div>
+            </div>
+        </div>
+        <div class="row justify-content-center">
+            <!-- <div class ="col-md-2"> -->
+                <button class="btn btn-success w-auto" (click)="routeToCreateItem()">Add Item</button>
+            <!-- </div> -->
         </div>
     </div>
 </div>
