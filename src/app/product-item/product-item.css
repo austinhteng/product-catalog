@@ -1,5 +1,4 @@
-.product-item-box {
-  width: 100%;
+/* .product-item-box {
   display: grid;
   grid-template-columns: 50px repeat(5, 1fr);
   align-items: left;
@@ -11,4 +10,4 @@
 .product-item-box * {
     margin: 0 10px;
     font-size: large;
-}
+} */

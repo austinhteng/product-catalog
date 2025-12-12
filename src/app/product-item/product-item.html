@@ -1,10 +1,13 @@
-<div class="product-item-box">
-    <p>{{index}}.</p>
-    <p>Name: {{product.name | titlecase}}</p>
-    <p>Price: {{product.price | currency}}</p>
-    <p>ID: {{product.id | itemId:8}}</p>
-    <button (click)="onBuy()">Buy</button>
-    <button (click)="onDelete()">Delete</button>
-
+<tr>
+    <th scope="row">{{index}}.</th>
+    <td>Price: {{product.price | currency}}</td>
+    <td>Name: {{product.name | titlecase}}</td>
+    <td>ID: {{product.id | itemId:8}}</td>
+    <!-- <td>
+        <button type="button" class="btn btn-primary" (click)="onBuy()">Buy</button>
+    </td>
+    <td>
+        <button type="button" class="btn btn-danger" (click)="onDelete()">Delete</button>
+    </td> -->
     
-</div>
+</tr>
