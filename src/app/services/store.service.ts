@@ -1,6 +1,7 @@
 import { computed, inject, Injectable, Signal, signal, WritableSignal } from "@angular/core";
 
 import { ProductService } from "./product.service";
+import { Observable, of } from "rxjs";
 
 @Injectable({
     providedIn: 'root'
@@ -13,7 +14,7 @@ export class StoreService {
         return this.calculateCost(this.shoppingCart());
     });
 
-    addToCart(productId: number) : void {
+    addToCart(productId: number) : Observable<void> {
         console.log(`${productId} added to cart.`);
         
         let cart: Map<number, number> = new Map(this.shoppingCart());   //Note: Yes, this is somewhat inefficient; cart shouldn't be large though.
@@ -23,23 +24,26 @@ export class StoreService {
             cart.set(productId, 1);
         }
         this.shoppingCart.set(cart);
+        return of(undefined);
     }
 
-    clearCart() : void {
+    clearCart() : Observable<void> {
         this.shoppingCart.set(new Map<number, number>());
+        return of(undefined);
     }
 
     getCartItems() : Signal<Map<number, number>> { //Note: ReadonlyMap instead of readonly modifier is weird.
         return this.shoppingCart.asReadonly();
     }
 
-    removeItem(productId: number) : void {
+    removeItem(productId: number) : Observable<void> {
         let cart: Map<number, number> = new Map(this.shoppingCart());
         cart.delete(productId); //Note: No need to check if it exists first.
         this.shoppingCart.set(cart);
+        return of(undefined);
     }
 
-    removeSingleItem(productId: number) : void {
+    removeSingleItem(productId: number) : Observable<void> {
         let cart: Map<number, number> = new Map(this.shoppingCart());
         if (cart.has(productId)) {
             cart.set(productId, cart.get(productId)! - 1)!;
@@ -48,6 +52,7 @@ export class StoreService {
             }
         }
         this.shoppingCart.set(cart);
+        return of(undefined);
     }
 
     private calculateCost(cart: Map<number, number>) : number {

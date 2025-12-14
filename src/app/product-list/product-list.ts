@@ -16,23 +16,29 @@ export class ProductList {
 
   constructor(private productService: ProductService, private router: Router) {}  //Note: variables passed to constructor have weird scope.
 
-  
-  //Note: Do I link the 'model' and the 'view' here? I expect a "viewmodel" layer instead.
-  //Note: I suppose the 'view' is the html and this .ts is the viewmodel.
   items: readonly Product[] = [];
 
   ngOnChanges() : void {}
 
   ngOnInit() : void {
-    this.items = this.productService.getProducts();
+    this.refreshList();
   }
 
   deleteItemAtIndex(index: number): void {
-    this.productService.deleteProductByIndex(index);  //Note: Would need some sort of await.
-    this.items = this.productService.getProducts();
+    this.productService.deleteProductByIndex(index).subscribe(() => {
+      //Refresh list after deletion.
+      next: this.refreshList();
+    });
+    
   }
 
   routeToCreateItem(): void {
     this.router.navigate(['/create-item']);
+  }
+
+  refreshList(): void {
+    this.productService.getProducts().subscribe(products => {
+      next: this.items = products;
+    });
   }
 }

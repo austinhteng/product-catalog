@@ -2,6 +2,8 @@
 import { Injectable } from '@angular/core';
 import { Product } from '../models/product';   // <-- import your Product class
 
+import { Observable, of } from 'rxjs';
+
 @Injectable({
     providedIn: 'root'
 })
@@ -21,20 +23,27 @@ export class ProductService {
         this.products.map((product) => [product.id, product])
     );
 
-    getProducts(): readonly Product[] {
-        return this.products;
+    getProducts(): Observable<readonly Product[]> {
+        return of(this.products);
     }
 
-    deleteProductByIndex(index: number): void {
+    deleteProductByIndex(index: number): Observable<void> {
         let removed: Product = this.products.splice(index, 1).at(0)!;
         this.productLookup.delete(removed.id);
+        return of(undefined);
     }
 
-    addProduct(product: Product): void {
+    addProduct(product: Product): Observable<void> {
         this.products.push(product);
         this.productLookup.set(product.id, product);
+        return of(undefined);
     }
 
+    /*
+        Note: This is interesting. I can't make this async because it's used to compute a signal in StoreService.
+        Meaning ideally this should stay synchronous and be based on cached data only.
+        Or better yet cache the total cost in StoreService and update it as items are added/removed.
+    */
     getProductById(id: number): Product | undefined {
         console.log(`ProductService lookup: ${id}`);
         
