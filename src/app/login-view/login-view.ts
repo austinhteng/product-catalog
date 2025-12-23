@@ -16,4 +16,10 @@ export class LoginView {
     this.authService.setLoggedIn(true);
     this.router.navigate(['/products']);
   }
+
+  adminLogin(): void {
+    this.authService.setLoggedIn(true);
+    this.authService.setAdminLoggedIn(true);
+    this.router.navigate(['/products'])
+  }
 }

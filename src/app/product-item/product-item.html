@@ -1,6 +1,6 @@
 <div class="row g-0 justify-content-start color-primary-light text-black p-3 mb-1 rounded">
     <div class="col-sm-1">
-        <p>{{index}}.</p>
+        <p>{{index + 1}}.</p>
     </div>
     <div class="col">
         <p>Price: {{product.price | currency}}</p>
@@ -8,13 +8,16 @@
     <div class="col">
         <p>Name: {{product.name | titlecase}}</p>
     </div>
-    <div class="col">
+    <div class="col" *ngIf="isAdmin">
         <p>ID: {{product.id | itemId:8}}</p>
     </div>
     <div class="col-auto">
         <button type="button" class="btn btn-primary" (click)="onBuy()">Buy</button>
     </div>
     <div class="col-auto">
+        <button type="button" class="btn btn-info" (click)="onInfo()">Info</button>
+    </div>
+    <div class="col-auto" *ngIf="isAdmin">
         <button type="button" class="btn btn-danger" (click)="onDelete()">Delete</button>
     </div>
     

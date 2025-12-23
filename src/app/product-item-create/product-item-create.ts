@@ -21,6 +21,8 @@ export class ProductItemCreate {
   id: string = '';
   name: string = '';
   price: number = 0.00;
+  description: string = '';
+  categoryId: number = 0;
   itemForm: any;
 
   ngOnInit(): void {
@@ -44,7 +46,9 @@ export class ProductItemCreate {
     this.productService.addProduct({
       id: product.id!,
       name: product.name!,
-      price: product.price!
+      price: product.price!,
+      description: product.description!,
+      categoryId: product.categoryId!
     });
 
     this.router.navigate(['/products']);
