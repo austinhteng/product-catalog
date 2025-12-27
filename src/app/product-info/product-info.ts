@@ -18,7 +18,7 @@ export class ProductInfo {
   productId: number = 0;
   product: Product = {
   id: 0,
-  name: '',
+  productName: '',
   price: 0.00,
   description: '',
   categoryId: 0
@@ -27,7 +27,7 @@ export class ProductInfo {
   ngOnInit() {
     this.productId = Number(this.activatedRoute.snapshot.paramMap.get('id'));
     this.product = this.productService.getProductById(this.productId)!;
-    console.log( `Loading item: ${this.product.name}`);
+    console.log( `Loading item: ${this.product.productName}`);
     
   }
 }

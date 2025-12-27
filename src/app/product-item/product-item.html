@@ -6,7 +6,7 @@
         <p>Price: {{product.price | currency}}</p>
     </div>
     <div class="col">
-        <p>Name: {{product.name | titlecase}}</p>
+        <p>Name: {{product.productName | titlecase}}</p>
     </div>
     <div class="col" *ngIf="isAdmin">
         <p>ID: {{product.id | itemId:8}}</p>

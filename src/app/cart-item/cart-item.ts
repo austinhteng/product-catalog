@@ -22,6 +22,6 @@ export class CartItem {
   }
 
   ngOnInit(): void {
-    this.productName = this.productService.getProductById(this.productID)?.name || 'Unknown Product';
+    this.productName = this.productService.getProductById(this.productID)?.productName || 'Unknown Product';
   }
 }

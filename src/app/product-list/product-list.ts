@@ -1,5 +1,5 @@
 import { CommonModule } from '@angular/common';
-import { Component, Inject } from '@angular/core';
+import { Component, Inject, signal, Signal } from '@angular/core';
 import { ActivatedRoute, Router } from '@angular/router';
 
 import { ProductItem } from '../product-item/product-item';
@@ -16,7 +16,7 @@ export class ProductList {
 
   constructor(private productService: ProductService, private router: Router) {}  //Note: variables passed to constructor have weird scope.
 
-  items: readonly Product[] = [];
+  items = signal<Product[]>([]);
 
   ngOnChanges() : void {}
 
@@ -37,8 +37,13 @@ export class ProductList {
   }
 
   refreshList(): void {
-    this.productService.getProducts().subscribe(products => {
-      next: this.items = products;
+    this.productService.getProducts().subscribe({
+      next: products => {
+        this.items.set(products);
+      },
+      error: (err) => {
+        console.error('API Error:', err);
+      },
     });
   }
 }

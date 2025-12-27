@@ -45,7 +45,7 @@ export class ProductItemCreate {
 
     this.productService.addProduct({
       id: product.id!,
-      name: product.name!,
+      productName: product.name!,
       price: product.price!,
       description: product.description!,
       categoryId: product.categoryId!
