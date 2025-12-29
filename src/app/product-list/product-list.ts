@@ -25,11 +25,16 @@ export class ProductList {
   }
 
   deleteItemAtIndex(index: number): void {
-    this.productService.deleteProductByIndex(index).subscribe(() => {
+    if (index < 0 || index >= this.items().length) {
+      console.error(`Index out of bounds: ${index}`);
+      return;
+    }
+
+    let productIndex = this.items().at(index)!.id;
+    this.productService.toggleProduct(productIndex).subscribe(() => {
       //Refresh list after deletion.
       next: this.refreshList();
     });
-    
   }
 
   routeToCreateItem(): void {

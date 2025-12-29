@@ -51,14 +51,11 @@ export class ProductService {
         console.log(response);
         
         return response;
-        // return of(this.products);
     }
 
-    deleteProductByIndex(index: number): Observable<void> {
-        // let removed: Product = this.products.splice(index, 1).at(0)!;
-        // this.productLookup.delete(removed.id);
-        // return this.http.delete<void>(`${this.apiUrl}/${removed.id}`);
-        return of(undefined);
+    toggleProduct(productId: number): Observable<void> {
+
+        return this.http.put<void>(`${this.apiUrl}/ToggleActive/${productId}`, null);
     }
 
     addProduct(product: Product): Observable<void> {
