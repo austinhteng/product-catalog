@@ -19,16 +19,15 @@ export class ProductService {
     );
 
     getProducts(): Observable<Product[]> { 
-    return this.http.get<Product[]>(`${this.apiUrl}`).pipe(
-        tap(products => {
-            this.products = products;
-            this.productLookup = new Map<number, Product>(
-                products.map(p => [p.id, p])
-            );
-        })
-    );
-}
-
+        return this.http.get<Product[]>(`${this.apiUrl}`).pipe(
+            tap(products => {
+                this.products = products;
+                this.productLookup = new Map<number, Product>(
+                    products.map(p => [p.id, p])
+                );
+            })
+        );
+    }
 
     toggleProduct(productId: number): Observable<void> {
 
@@ -36,22 +35,17 @@ export class ProductService {
     }
 
     addProduct(product: Product): Observable<void> {
-        console.log("Saving new item:", product);
-        // this.products.push(product);
-        // this.productLookup.set(product.id, product);
-        return this.http.post<void>(`${this.apiUrl}/PostProduct`, product);
+        return this.http.post<void>(`${this.apiUrl}/PostProduct`, product); //Note: Not immediately cached.
     }
 
     /*
         Note: This is interesting. I can't make this async because it's used to compute a signal in StoreService.
         Meaning ideally this should stay synchronous and be based on cached data only.
         Or better yet cache the total cost in StoreService and update it as items are added/removed.
-        TODO: Refactor to separate service for working with cached data instead.
     */
     getProductById(id: number): Product | undefined {
         console.log(`ProductService lookup: ${id}`);
 
-        // return this.http.get<Product>(`${this.apiUrl}/${id}`);
         return this.productLookup.get(id);
     }
 }
