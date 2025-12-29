@@ -3,13 +3,12 @@ import { FormBuilder, Validators, ValidationErrors, ReactiveFormsModule, FormCon
 import { Router } from '@angular/router';
 import { CommonModule } from '@angular/common';
 
-import { ProductItemCreatePreview } from '../product-item-create-preview/product-item-create-preview';
 import { ProductService } from '../services/product.service';
 
 @Component({
   selector: 'product-item-create',
   standalone: true,
-  imports: [ReactiveFormsModule, ProductItemCreatePreview, CommonModule],
+  imports: [ReactiveFormsModule, CommonModule],
   templateUrl: './product-item-create.html',
   styleUrl: './product-item-create.css',
 })
@@ -27,9 +26,10 @@ export class ProductItemCreate {
 
   ngOnInit(): void {
       this.itemForm = this.fb.group({
-      id: new FormControl( this.id, [Validators.required, Validators.min(1), this.productIdNotUsedValidator]),
       name: new FormControl(this.name, [Validators.required, Validators.minLength(2)]),
       price: new FormControl(this.price, [Validators.required, Validators.min(0.01)]),
+      description: new FormControl(this.description, [Validators.required]),
+      categoryId: new FormControl(this.categoryId, [Validators.required, Validators.min(1)])
     });
   }
 
@@ -44,14 +44,15 @@ export class ProductItemCreate {
     console.log("Saving new item:", product);
 
     this.productService.addProduct({
-      id: product.id!,
+      id: -1,  // Placeholder, backend should assign real ID.
       productName: product.name!,
       price: product.price!,
       description: product.description!,
-      categoryId: product.categoryId!
+      categoryId: product.categoryId!,
+      categoryName: ""
+    }).subscribe(() => {
+      this.router.navigate(['/products']);
     });
-
-    this.router.navigate(['/products']);
   }
 
   productIdNotUsedValidator = (control: AbstractControl): ValidationErrors | null => {

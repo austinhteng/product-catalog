@@ -1,15 +1,5 @@
 <div class="product-item-create-box">
-    <div class="product-item-entry" [formGroup]="itemForm">
-    <!-- ID -->
-    <label for="idField">Item ID:</label>
-    <input type="text" id="idField" formControlName="id" (keydown)="onlyDigits($event)"/>
-    <div class="error"
-         *ngIf="itemForm.get('id')?.invalid && itemForm.get('id')?.touched">
-      <span *ngIf="itemForm.get('id')?.errors?.['required']">ID is required</span>
-      <span *ngIf="itemForm.get('id')?.errors?.['minlength']">ID must be at least 3 characters</span>
-      <span *ngIf="itemForm.get('id')?.errors?.['min']">ID must be >= 1</span>
-      <span *ngIf="itemForm.get('id')?.errors?.['idUsed']">ID must be unique</span>
-    </div>
+  <div class="product-item-entry" [formGroup]="itemForm">
 
     <!-- Name -->
     <label for="nameField">Item Name:</label>
@@ -21,38 +11,28 @@
 
     <!-- Price -->
     <label for="priceField">Item Price:</label>
-    <input id="priceField" formControlName="price" (keydown)="onlyDigits($event)"/>
+    <input type="number" id="priceField" formControlName="price" min="0.01" step="0.01" />
     <div class="error" *ngIf="itemForm.get('price')?.invalid && itemForm.get('price')?.touched">
       <span *ngIf="itemForm.get('price')?.errors?.['required']">Price is required</span>
       <span *ngIf="itemForm.get('price')?.errors?.['min']">Price must be greater than 0</span>
     </div>
 
-    <!-- <label for="idField">Item ID:</label>
-    <input
-        type="text"
-        id="idField"
-        [(ngModel)]="idInput"
-    />
+    <!-- Description -->
+    <label for="descriptionField">Description:</label>
+    <textarea id="descriptionField" formControlName="description"></textarea>
+    <div class="error" *ngIf="itemForm.get('description')?.invalid && itemForm.get('description')?.touched">
+      <span *ngIf="itemForm.get('description')?.errors?.['required']">Description is required</span>
+    </div>
 
-    
+    <!-- Category -->
+    <label for="categoryField">Category:</label>
+    <input type="number" id="categoryField" formControlName="categoryId" min="1" />
+    <div class="error" *ngIf="itemForm.get('categoryId')?.invalid && itemForm.get('categoryId')?.touched">
+      <span *ngIf="itemForm.get('categoryId')?.errors?.['required']">Category is required</span>
+      <span *ngIf="itemForm.get('categoryId')?.errors?.['min']">Category must be >= 1</span>
+    </div>
 
-    <label for="nameField">Item Name:</label>
-    <input
-        type="text"
-        id="nameField"
-        [(ngModel)]="nameInput"
-    />
+  </div>
 
-    <label for="priceField">Item Price:</label>
-    <input
-        type="text"
-        id="priceField"
-        [(ngModel)]="priceInput"
-    />
-    </div> -->
-
-    <!-- <product-item-create-preview
-        [product]="{id: idInput, name: nameInput, price: priceInput}"/> -->
-    
-    <button (click)="saveNewItem()">Save Item</button>
+  <button (click)="saveNewItem()" [disabled]="itemForm.invalid">Save Item</button>
 </div>
