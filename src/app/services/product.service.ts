@@ -3,13 +3,17 @@ import { Injectable, inject } from '@angular/core';
 import { Product } from '../models/product';   // <-- import your Product class
 
 import { Observable, of, tap } from 'rxjs';
-import { HttpClient } from '@angular/common/http';
+import { HttpClient, HttpHeaders } from '@angular/common/http';
+
+import { AuthService } from './auth';
 
 @Injectable({
     providedIn: 'root'
 })
 export class ProductService {
     http: HttpClient = inject(HttpClient)
+    authService: AuthService = inject(AuthService);
+
     private readonly apiUrl = '/api/ProductCatalog';
 
     private products: Product[] = []; // Placeholder for cached products.
@@ -30,7 +34,10 @@ export class ProductService {
     }
 
     toggleProduct(productId: number): Observable<void> {
-
+        // const header = new HttpHeaders({
+        // 'Authorization': `Bearer ${this.authService.tokenSignal()}`
+        // });
+        // return this.http.put<void>(`${this.apiUrl}/ToggleActive/${productId}`, null, { headers: header });
         return this.http.put<void>(`${this.apiUrl}/ToggleActive/${productId}`, null);
     }
 

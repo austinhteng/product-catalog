@@ -13,13 +13,17 @@ export class LoginView {
   router = inject(Router);
 
   login(): void {
-    this.authService.setLoggedIn(true);
-    this.router.navigate(['/products']);
+    this.authService.LogIn(false).subscribe((response) => {
+      console.log("Login response:", response);
+      this.router.navigate(['/products']);
+    });
   }
 
   adminLogin(): void {
-    this.authService.setLoggedIn(true);
-    this.authService.setAdminLoggedIn(true);
-    this.router.navigate(['/products'])
+
+    this.authService.LogIn(true).subscribe((response) => {
+      console.log("Login response:", response);
+      this.router.navigate(['/products']);
+    });
   }
 }

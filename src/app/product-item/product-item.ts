@@ -6,6 +6,7 @@ import { ItemIdPipe } from '../pipes/item-id/item-id-pipe';
 import { Product } from '../models/product';
 import { StoreService } from '../services/store.service';
 import { AuthService } from '../services/auth';
+import { ToastrService } from 'ngx-toastr';
 @Component({
   selector: 'product-item',
   standalone: true,
@@ -21,11 +22,13 @@ export class ProductItem {
   shoppingCartService = inject(StoreService); //Note: This logic should possibly be in productlist instead.
   router = inject(Router);
   authService = inject(AuthService);
+  toastr = inject(ToastrService);
 
   isAdmin: boolean = this.authService.isAdmin();
 
   onBuy(): void {
     this.shoppingCartService.addToCart(this.product.id);
+    this.toastr.success(`${this.product.productName} added to cart!`, 'Success');
   }
   onDelete(): void {
     if (this.deleteFromParentEvent != null && this.index != null) {
