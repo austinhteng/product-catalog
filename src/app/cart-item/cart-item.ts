@@ -2,6 +2,7 @@ import { Component, Input, inject } from '@angular/core';
 
 import { ProductService } from '../services/product.service';
 import { StoreService } from '../services/store.service';
+import { ToastrService } from 'ngx-toastr';
 
 @Component({
   selector: 'cart-item',
@@ -15,10 +16,13 @@ export class CartItem {
 
   productService = inject(ProductService);
   storeService = inject(StoreService);
+  toastr = inject(ToastrService);
+
   productName: string = 'Unknown Product';
 
   removeItem(): void {
     this.storeService.removeSingleItem(this.productID);
+    this.toastr.info(`${this.productName} removed from cart.`, 'Item Removed');
   }
 
   ngOnInit(): void {

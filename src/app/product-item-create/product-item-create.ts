@@ -2,6 +2,7 @@ import { Component, inject } from '@angular/core';
 import { FormBuilder, Validators, ValidationErrors, ReactiveFormsModule, FormControl, AbstractControl } from '@angular/forms';
 import { Router } from '@angular/router';
 import { CommonModule } from '@angular/common';
+import { ToastrService } from 'ngx-toastr';
 
 import { ProductService } from '../services/product.service';
 
@@ -16,6 +17,7 @@ export class ProductItemCreate {
   private fb = inject(FormBuilder);
   private productService = inject(ProductService);
   private router: Router = inject(Router);
+  private toastr = inject(ToastrService);
 
   id: string = '';
   name: string = '';
@@ -35,6 +37,7 @@ export class ProductItemCreate {
 
   saveNewItem(): void {
     if (this.itemForm.invalid) {
+      this.toastr.error('Please correct the errors in the form before saving.', 'Form Invalid');
       this.itemForm.markAllAsTouched();
       return;
     }
